@@ -1,0 +1,30 @@
+{
+    "manifest_version": 3,
+    "name": "Byte Buddy",
+    "version": "1.0",
+    "description": "With this extension, you can feed your own virtual pet and interact with it.",
+    "icons": {
+        "48": "chick-icon-new.png"
+    },
+    "permissions": [
+        "storage",
+        "notifications",
+        "activeTab"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "action": {
+        "default_popup": "index.html",
+        "default_icon": {
+            "48": "chick-icon-new.png"
+        }
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ]
+}

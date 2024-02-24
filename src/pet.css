@@ -1,0 +1,24 @@
+.chick {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    animation-name: example;
+    animation-duration: 100s;
+    animation-delay: 1s;
+    animation-direction: alternate;
+    animation-iteration-count: infineite;
+
+}
+
+@keyframes example {
+    from {
+        bottom: 0;
+        left: 0;
+    }
+
+    to {
+        bottom: 0;
+        left: 90%;
+    }
+}
