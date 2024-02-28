@@ -1,17 +1,54 @@
-import React from 'react';
-import './popup.css'; // CSS dosyasının yolu proje yapınıza bağlı olarak değişebilir
-import petImage from './assets/white_idle_8fps.gif'; // Doğru yolu kullanın
+import React, { useState, useEffect } from 'react';
+
+import './popup.css';
+import petImage from './assets/white_idle_8fps.gif';
+import { MdEdit } from "react-icons/md";
+
 
 function Popup() {
+    const [name, setName] = useState(localStorage.getItem('petName') || 'balim');
+    const [editable, setEditable] = useState(false);
+
+
+    useEffect(() => {
+        localStorage.setItem('petName', name);
+    }, [name]);
+
+    const handleChange = (event) => {
+        setName(event.target.value);
+    };
+
+    const handleEditClick = () => {
+        setEditable(true);
+    };
+
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            setEditable(false);
+            localStorage.setItem('petName', name);
+            console.log('Name saved:', name);
+        }
+    };
+
     function handleFoodClick() {
         console.log('Food button clicked');
-        // Burada besleme ile ilgili işlemleri yapabilirsiniz
+        // food
     }
+
+
     return (
         <div className="container">
             <img src={petImage} alt="Petim" style={{ width: '50px', height: 'auto' }} />
-            <h3>balim</h3>
-
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div style={{ flex: 1 }}>
+                    {editable ? (
+                        <input type="text" value={name} onChange={handleChange} onKeyDown={handleKeyPress} />
+                    ) : (
+                        <div style={{ textAlign: 'center' }}>{name}</div>
+                    )}
+                </div>
+                <MdEdit onClick={handleEditClick} style={{ cursor: 'pointer' }} />
+            </div>
             <div className="bars-container" style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
                 <div>
                     <div className="bar-container">

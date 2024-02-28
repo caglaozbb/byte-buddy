@@ -21,6 +21,7 @@ body {
     overflow: hidden;
 }
 
+
 .bar {
     width: 100%;
     border-radius: 8px;
@@ -45,4 +46,13 @@ body {
 
 button {
     margin-top: 5px;
+}
+
+input {
+    background: transparent;
+    color: #f0f0f0;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: center;
 }

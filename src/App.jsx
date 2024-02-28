@@ -1,6 +1,5 @@
-import { useState } from 'react'
 import './App.css'
-import Popup from './popup'; // Doğru yolu kullanın
+import Popup from './popup';
 import Pet from './pet'
 
 function App() {
