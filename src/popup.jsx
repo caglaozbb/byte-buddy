@@ -3,19 +3,33 @@ import React, { useState, useEffect } from 'react';
 import './popup.css';
 import petImage from './assets/white_idle_8fps.gif';
 import { MdEdit } from "react-icons/md";
+import {
+    GAME_COOLDOWN,
+    HUNGER_COOLDOWN,
+    SLEEP_COOLDOWN,
+    DEFAULT_STAT,
+    DEFAULT_INCREMENT_VALUE,
+} from "./config"
 
+import Avatar from './components/Avatar';
 
 function Popup() {
     const [name, setName] = useState(localStorage.getItem('petName') || 'balim');
     const [editable, setEditable] = useState(false);
-    const [hunger, setHunger] = useState(100);
-    const [game, setGame] = useState(100);
-    const [sleep, setSleep] = useState(100);
-
+    const [hunger, setHunger] = useState(localStorage.getItem('hungerStat') || DEFAULT_STAT);
+    const [game, setGame] = useState(localStorage.getItem('gameStat') || DEFAULT_STAT);
+    const [sleep, setSleep] = useState(localStorage.getItem('sleepStat') || DEFAULT_STAT);
 
     useEffect(() => {
         localStorage.setItem('petName', name);
-    }, [name]);
+        localStorage.setItem('hungerStat', hunger)
+        localStorage.setItem('gameStat', game)
+        localStorage.setItem('sleepStat', sleep)
+
+
+    }, [name, hunger, game, sleep]);
+
+
 
     const handleChange = (event) => {
         setName(event.target.value);
@@ -34,77 +48,77 @@ function Popup() {
     }
 
     function handleFoodClick() {
-        setHunger(Math.min(hunger + 10, 100));
+        setHunger(Math.min(hunger + DEFAULT_INCREMENT_VALUE, 100));
         console.log('Food button clicked');
     }
 
     function handlePlayClick() {
-        setGame(Math.min(game + 10, 100));
+        setGame(Math.min(game + DEFAULT_INCREMENT_VALUE, 100));
         console.log('Play button clicked');
     }
 
     function handleSleepClick() {
-        setSleep(Math.min(sleep + 10, 100));
+        setSleep(Math.min(sleep + DEFAULT_INCREMENT_VALUE, 100));
         console.log('Sleep button clicked');
     }
 
+
     useEffect(() => {
-        const interval = setInterval(() => {
+        const hungerInterval = setInterval(() => {
             setHunger(prevHunger => Math.max(prevHunger - 5, 0));
-        }, 15 * 60 * 1000); //15 dk (15dk * 60 sn * 1000 msa)
+        }, HUNGER_COOLDOWN);
 
-        return () => clearInterval(interval);
-    }, []);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
+        const gameInterval = setInterval(() => {
             setGame(prevGame => Math.max(prevGame - 5, 0));
-        }, 5 * 60 * 1000); //5 dk 
+        }, GAME_COOLDOWN);
 
-        return () => clearInterval(interval);
-    }, []);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
+        const sleepInterval = setInterval(() => {
             setSleep(prevSleep => Math.max(prevSleep - 10, 0));
-        }, 60 * 60 * 1000); //1 saat
+        }, SLEEP_COOLDOWN);
 
-        return () => clearInterval(interval);
+        return () => {
+            clearInterval(hungerInterval);
+            clearInterval(gameInterval);
+            clearInterval(sleepInterval);
+
+        }
     }, []);
+
 
     return (
         <div className="container">
-            <img src={petImage} alt="Petim" style={{ width: '50px', height: 'auto', justifyContent: 'center' }} />
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-                <div style={{ flex: 1 }}>
+            <Avatar image={petImage} />
+            <div className="pet-name-container" >
+                <div className="input-container">
                     {editable ? (
                         <input type="text" value={name} onChange={handleChange} onKeyDown={handleKeyPress} />
                     ) : (
-                        <div style={{ textAlign: 'center' }}>{name}</div>
+                        <div className="name-text">{name}</div>
                     )}
                 </div>
-                <MdEdit onClick={handleEditClick} style={{ cursor: 'pointer' }} />
+                <MdEdit className="edit-icon" onClick={handleEditClick} />
             </div>
-            <div className="bars-container" style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
+
+            <div className="bars-container" >
                 <div>
                     <div className="bar-container">
                         <div className="food-bar bar" style={{ height: `${hunger}%`, backgroundColor: hunger > 50 ? '#FDA7DF' : '#f73c7a' }}></div>
                     </div>
-                    <button id="foodButton" onClick={handleFoodClick}>Food</button>
+                    <button className="button-food" id="foodButton" onClick={handleFoodClick}>Food</button>
                 </div>
 
                 <div>
                     <div className="bar-container">
                         <div className="play-bar bar" style={{ height: `${game}%`, backgroundColor: game > 50 ? '#48dbfb' : '#4848fb' }}></div>
                     </div>
-                    <button id="playButton" onClick={handlePlayClick}>Play</button>
+                    <button className="button-play" id="playButton" onClick={handlePlayClick}>Play</button>
                 </div>
 
                 <div>
                     <div className="bar-container">
                         <div className="sleep-bar bar" style={{ height: `${sleep}%`, backgroundColor: sleep > 50 ? '#1dd1a1' : '#1bbb2b' }}></div>
                     </div>
-                    <button id="sleepButton" onClick={handleSleepClick}>Sleep</button>
+                    <button className="button-sleep" id="sleepButton" onClick={handleSleepClick}>Sleep</button>
                 </div>
             </div>
         </div>
