@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
 import './popup.css';
-import petImage from './assets/white_idle_8fps.gif';
+import petImage1 from './assets/white_idle_8fps.gif';
+import petImage2 from './assets/white_run_8fps.gif';
+import petImage3 from './assets/white_with_ball_8fps.gif';
+
+
+
 import { MdEdit } from "react-icons/md";
 import {
     GAME_COOLDOWN,
@@ -9,12 +14,25 @@ import {
     SLEEP_COOLDOWN,
     DEFAULT_STAT,
     DEFAULT_INCREMENT_VALUE,
-    PET_STATUS
+    PET_STATUS,
+    PET_VISUAL
 } from "./config"
 
 import Avatar from './components/Avatar';
 
 function Popup() {
+
+    const imgSources = [petImage1, petImage2, petImage3];
+    const [randomImage, setRandomImage] = useState(imgSources[0]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const randomIndex = Math.floor(Math.random() * imgSources.length);
+            setRandomImage(imgSources[randomIndex]);
+        }, PET_VISUAL);
+        return () => clearInterval(interval);
+    }, []);
+
     const [name, setName] = useState(localStorage.getItem('petName') || 'balim');
     const [editable, setEditable] = useState(false);
     const [hunger, setHunger] = useState(localStorage.getItem('hungerStat') || DEFAULT_STAT);
@@ -103,7 +121,7 @@ function Popup() {
 
     return (
         <div className="container">
-            <Avatar image={petImage} />
+            <Avatar image={randomImage} />
             <div className="name-container" >
                 <div className="edit-container">
                     {editable ? (
