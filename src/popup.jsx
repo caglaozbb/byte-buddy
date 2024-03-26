@@ -9,6 +9,7 @@ import {
     SLEEP_COOLDOWN,
     DEFAULT_STAT,
     DEFAULT_INCREMENT_VALUE,
+    PET_STATUS
 } from "./config"
 
 import Avatar from './components/Avatar';
@@ -19,6 +20,7 @@ function Popup() {
     const [hunger, setHunger] = useState(localStorage.getItem('hungerStat') || DEFAULT_STAT);
     const [game, setGame] = useState(localStorage.getItem('gameStat') || DEFAULT_STAT);
     const [sleep, setSleep] = useState(localStorage.getItem('sleepStat') || DEFAULT_STAT);
+    const [status, setStatus] = useState(localStorage.getItem("status") ?? PET_STATUS.ALIVE)
 
     useEffect(() => {
         localStorage.setItem('petName', name);
@@ -26,10 +28,25 @@ function Popup() {
         localStorage.setItem('gameStat', game)
         localStorage.setItem('sleepStat', sleep)
 
+        let nextStatus = status
+        if (hunger == 0 && game == 0 && sleep == 0) {
+            nextStatus = PET_STATUS.DEAD
+        } else {
+            nextStatus = PET_STATUS.ALIVE
+        }
+
+        localStorage.setItem('status', nextStatus)
+        setStatus(nextStatus)
 
     }, [name, hunger, game, sleep]);
 
 
+    const reborn = () => {
+        setHunger(DEFAULT_STAT)
+        setGame(DEFAULT_STAT)
+        setSleep(DEFAULT_STAT)
+        setStatus(PET_STATUS.ALIVE)
+    }
 
     const handleChange = (event) => {
         setName(event.target.value);
@@ -84,19 +101,18 @@ function Popup() {
         }
     }, []);
 
-
     return (
         <div className="container">
             <Avatar image={petImage} />
-            <div className="pet-name-container" >
-                <div className="input-container">
+            <div className="name-container" >
+                <div className="edit-container">
                     {editable ? (
-                        <input type="text" value={name} onChange={handleChange} onKeyDown={handleKeyPress} />
+                        <input className="name-input" type="text" value={name} onChange={handleChange} onKeyDown={handleKeyPress} />
                     ) : (
-                        <div className="name-text">{name}</div>
+                        <div className="display-name">{name}</div>
                     )}
                 </div>
-                <MdEdit className="edit-icon" onClick={handleEditClick} />
+                <MdEdit className="edit-button" onClick={handleEditClick} />
             </div>
 
             <div className="bars-container" >
@@ -121,6 +137,10 @@ function Popup() {
                     <button className="button-sleep" id="sleepButton" onClick={handleSleepClick}>Sleep</button>
                 </div>
             </div>
+            {status == PET_STATUS.DEAD && <div className="pet-dead">
+                <img src='/chicken-gone.gif' alt='dead' className='pet-dead-img'></img>
+                <button className='reborn-button' onClick={() => reborn()}>REBORN</button>
+            </div>}
         </div>
     );
 }

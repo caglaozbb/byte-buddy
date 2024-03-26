@@ -5,4 +5,7 @@ export const SLEEP_COOLDOWN = 10 * 1000
 // 60 * 60 * 1000
 export const DEFAULT_STAT = 100
 export const DEFAULT_INCREMENT_VALUE = 10
-export const DEFAULT_RESTART_VISIBLE = false
+export const PET_STATUS = {
+    ALIVE: "ALIVE",
+    DEAD: "DEAD"
+}

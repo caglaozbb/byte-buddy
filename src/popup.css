@@ -4,20 +4,36 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.pet-name-container {
+.name-container {
     display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.edit-container {
+    display: flex;
+    flex: auto;
+    justify-content: center;
     align-items: center;
 }
 
-.input-container {
-    flex: auto;
+.name-input {
+    display: flex;
+    background: transparent;
+    justify-content: center;
+    align-items: center;
+    color: #f0f0f0;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: center;
 }
 
-.edit-icon {
+.edit-button {
     cursor: pointer;
 }
 
-.name-text {
+.display-name {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -96,13 +112,40 @@ body {
     padding: 5px;
 }
 
-input {
-    background: transparent;
-    color: #f0f0f0;
+.pet-dead {
+    position: absolute;
+    background-color: #242424;
     width: 100%;
-    border: none;
-    outline: none;
-    text-align: center;
+    height: 100%;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.pet-dead-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: 100px;
+
+}
+
+.reborn-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    background-color: #ffd32a;
+    border-radius: 5px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    padding: 5px;
 }
 
 .button-food:hover,
