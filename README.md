@@ -6,6 +6,7 @@
 
 Your browser's feathered companion. You can interact with it by sleeping, feeding, and playing with it. It's a chicken for now, but more cuties are coming soon!
 
+[Add to your browser NOW](https://chromewebstore.google.com/detail/byte-buddy/pbccnhlpehadbpnadlginigmfifejmcb)
 
 ## Motivation
 
