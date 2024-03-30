@@ -9,23 +9,10 @@
     "permissions": [
         "storage"
     ],
-    "background": {
-        "service_worker": "background.js"
-    },
     "action": {
         "default_popup": "index.html",
         "default_icon": {
             "48": "public/chick-icon-new.png"
         }
-    },
-    "content_scripts": [
-        {
-            "js": [
-                "src/pet.jsx"
-            ],
-            "css": [
-                "src/App.css"
-            ]
-        }
-    ]
+    }
 }
