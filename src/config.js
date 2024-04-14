@@ -1,9 +1,9 @@
-export const HUNGER_COOLDOWN = 5 * 60 * 1000
-export const GAME_COOLDOWN = 2 * 60 * 1000
-export const SLEEP_COOLDOWN = 7 * 60 * 1000
+export const HUNGER_COOLDOWN = 60 * 1000
+export const GAME_COOLDOWN = 30 * 1000
+export const SLEEP_COOLDOWN = 3 * 60 * 1000
 export const PET_VISUAL = 2 * 60 * 1000
 export const DEFAULT_STAT = 100
-export const DEFAULT_INCREMENT_VALUE = 10
+export const DEFAULT_INCREMENT_VALUE = 2
 export const PET_STATUS = {
     ALIVE: "ALIVE",
     DEAD: "DEAD"

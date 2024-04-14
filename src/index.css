@@ -3,11 +3,23 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: #242424;
+  background-color: #f1f2f6;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    background-color: #242424;
+    color: rgba(255, 255, 255, 0.87);
+  }
+
+  .name-input {
+    color: rgba(255, 255, 255, 0.87);
+    /* Dark moda özgü renk */
+  }
 }
