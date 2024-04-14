@@ -20,6 +20,11 @@
 
   .name-input {
     color: rgba(255, 255, 255, 0.87);
-    /* Dark moda özgü renk */
+  }
+
+  .pet-dead {
+    background-color: #242424;
+    color: rgba(255, 255, 255, 0.87);
+
   }
 }
